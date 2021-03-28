@@ -28,6 +28,7 @@ df_20_dogs = df_20[df_20["PET_TYPE"] == "Dog"]
 
 # app = dash.Dash(__name__)
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 print("Plotting fig_cat_count")
 count_cats = (
