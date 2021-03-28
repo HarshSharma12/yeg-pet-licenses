@@ -182,41 +182,41 @@ fig_cat_hood.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
 
 # +
-print("Plotting fig_dog_hood")
+# print("Plotting fig_dog_hood")
 
-count_series = (
-    df_20_dogs.groupby(["NEIGHBOURHOOD", "NEIGHBOURHOOD_ID"], as_index=False)["BREED"]
-    .agg(lambda x: x.value_counts().index[0])
-    .sort_values(["NEIGHBOURHOOD_ID"])
-    .reset_index(drop=True)
-)
+# count_series = (
+#     df_20_dogs.groupby(["NEIGHBOURHOOD", "NEIGHBOURHOOD_ID"], as_index=False)["BREED"]
+#     .agg(lambda x: x.value_counts().index[0])
+#     .sort_values(["NEIGHBOURHOOD_ID"])
+#     .reset_index(drop=True)
+# )
 
-final_df = count_series.copy()  # [['NEIGHBOURHOOD','NEIGHBOURHOOD_ID']]
-final_df["Percent of total"] = df_20.groupby(
-    ["NEIGHBOURHOOD", "NEIGHBOURHOOD_ID"], as_index=False
-)["BREED"].agg(
-    lambda x: x.value_counts(normalize=True).mul(100).round(2)[0].astype(str) + "%"
-)[
-    "BREED"
-]
-final_df.fillna(0, inplace=True)
-final_df.to_csv("dog_type.csv", index=False)
+# final_df = count_series.copy()  # [['NEIGHBOURHOOD','NEIGHBOURHOOD_ID']]
+# final_df["Percent of total"] = df_20.groupby(
+#     ["NEIGHBOURHOOD", "NEIGHBOURHOOD_ID"], as_index=False
+# )["BREED"].agg(
+#     lambda x: x.value_counts(normalize=True).mul(100).round(2)[0].astype(str) + "%"
+# )[
+#     "BREED"
+# ]
+# final_df.fillna(0, inplace=True)
+# final_df.to_csv("dog_type.csv", index=False)
 
-dog_type_df = pd.read_csv("dog_type.csv")
-fig_dog_hood = px.choropleth_mapbox(
-    dog_type_df,
-    geojson=df_places,
-    locations="NEIGHBOURHOOD",
-    color="BREED",
-    featureidkey="properties.name",
-    hover_data=["Percent of total"],    
-    mapbox_style="carto-positron",
-    zoom=9, 
-    center = {"lat":EDM_LAT, "lon":EDM_LON},
-    opacity=0.5
-)
-fig_dog_hood.update_geos(fitbounds="locations", visible=False)
-fig_dog_hood.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+# dog_type_df = pd.read_csv("dog_type.csv")
+# fig_dog_hood = px.choropleth_mapbox(
+#     dog_type_df,
+#     geojson=df_places,
+#     locations="NEIGHBOURHOOD",
+#     color="BREED",
+#     featureidkey="properties.name",
+#     hover_data=["Percent of total"],    
+#     mapbox_style="carto-positron",
+#     zoom=9, 
+#     center = {"lat":EDM_LAT, "lon":EDM_LON},
+#     opacity=0.5
+# )
+# fig_dog_hood.update_geos(fitbounds="locations", visible=False)
+# fig_dog_hood.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
 # -
 
@@ -293,17 +293,17 @@ app.layout = html.Div(
                 "vertical-align": "middle",
             },
         ),
-        html.Div(
-            [
-                html.H4(children="Which dog breed is most common?"),
-                html.Div([dcc.Graph(figure=fig_dog_hood)]),
-            ],
-            style={
-                "width": "49%",
-                "display": "inline-block",
-                "vertical-align": "middle",
-            },
-        ),
+        # html.Div(
+        #     [
+        #         html.H4(children="Which dog breed is most common?"),
+        #         html.Div([dcc.Graph(figure=fig_dog_hood)]),
+        #     ],
+        #     style={
+        #         "width": "49%",
+        #         "display": "inline-block",
+        #         "vertical-align": "middle",
+        #     },
+        # ),
     ]
 )
 
